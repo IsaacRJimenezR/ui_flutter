@@ -10,12 +10,37 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Stack(
-        children: [
-          ColorFondo(),
-          Contenido(),
-        ],
+    return Scaffold(
+      body: SafeArea(
+        // Modificamos el statel para que los windgets puedan ser adaptados a la pantalla y no se desvorden
+        child: SingleChildScrollView(
+          //SingleChildScrollView = avilitamos el scrol en caso de que se desvorde el contenido de la pantalla como el texto
+          child: ConstrainedBox(
+            // para establecer una altura minima de de la parte superior he inferior
+            constraints: BoxConstraints(
+              // MediaQuery = resposniva elementos resposibos segun el tamaño de pantalla
+              // la altura para evitar el desvordamiento
+              // top = para la altura
+              // bottom = sera para profundidad
+              minHeight: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
+            ),
+            child: const IntrinsicHeight(
+              //IntrinsicHeight para que el contenido se expanda verticalmente
+              child: Stack(
+                children: [
+                  ColorFondo(),
+                  Contenido(),
+                ],
+              ),
+            ),
+          ),
+        ),
+        // children: [
+        //   ColorFondo(),
+        //   Contenido(),
+        // ],
       ),
     );
   }
@@ -51,6 +76,8 @@ class _ContenidoState extends State<Contenido> {
   Widget build(BuildContext context) {
     return Container(
       alignment: AlignmentDirectional.center,
+      //
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -59,8 +86,10 @@ class _ContenidoState extends State<Contenido> {
             children: [
               Container(
                 //Para el ancho y alto
-                width: 200,
-                height: 200,
+                // width: 200,
+                // height: 200,
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: MediaQuery.of(context).size.width * 0.5,
                 //PARA EL CIRCULO
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
@@ -70,27 +99,29 @@ class _ContenidoState extends State<Contenido> {
               ),
               Image.asset(
                 'lib/src/img/welcome.png',
-                width: 235,
-                height: 200,
+                // width: 235,
+                // height: 200,
+                width: MediaQuery.of(context).size.width * 0.6,
+                height: MediaQuery.of(context).size.width * 0.5,
               ),
             ],
           ),
           const SizedBox(
             height: 25,
           ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Welcome to TDG !',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+          // const Row(
+          //   // mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          const Text(
+            'Welcome to TDG !',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+            ),
           ),
+          //   ],
+          // ),
           const SizedBox(
             height: 15.0,
             width: 5,
@@ -136,7 +167,8 @@ class _BotonState extends State<Boton> {
           height: 20,
         ),
         SizedBox(
-          width: 330,
+          width: MediaQuery.of(context).size.width *
+              0.8, //Hacemos uso del media mediaQuery
           height: 50,
           child: ElevatedButton(
             onPressed: () {},

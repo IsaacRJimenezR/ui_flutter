@@ -14,7 +14,9 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: [
           Fondo(),
-          Contenido(),
+          SingleChildScrollView(
+            child: Contenido(),
+          ),
         ],
       ),
     );
@@ -49,9 +51,12 @@ class Contenido extends StatefulWidget {
 class _ContenidoState extends State<Contenido> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
+    return Padding(
+      // padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.05,
+      ),
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -227,18 +232,23 @@ class _BotonesState extends State<Botones> {
               children: [
                 Image.asset(
                   'lib/src/img/google.png',
-                  width: 30,
-                  height: 30,
+                  // width: 30,
+                  // height: 30,
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  height: MediaQuery.of(context).size.width * 0.1,
                 ),
                 const SizedBox(width: 10),
-                const Text(
-                  'Sing-in using Google',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
+                const Flexible(
+                  // PARA QUE EL TEXTO SEA FLEXIBLE DENTRO DE LA CAJA Y NO SALGA DE ESTA
+                  child: Text(
+                    'Sing-in using Google',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -246,10 +256,11 @@ class _BotonesState extends State<Botones> {
         const SizedBox(
           height: 50,
         ),
-        const Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20), //Margen
+        const SizedBox(
+          width: double.infinity,
+          // alignment: Alignment.center,
+          child: Align(
+            // padding: EdgeInsets.symmetric(horizontal: 20), //Margen
             child: Text(
               'G The Growing Developer',
               style: TextStyle(
